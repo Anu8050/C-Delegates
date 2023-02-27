@@ -226,7 +226,7 @@ namespace ThreadingDemo
 
 
 //Constructors of Thread Class
-class ThreadConstructor
+/*class ThreadConstructor
 {
     static void Main(String[] args)
     {
@@ -239,5 +239,21 @@ class ThreadConstructor
         {
             Console.WriteLine("Method1:" + i);
         }
+    }
+}*/
+
+//Creating Thread Class Instance using Lambda Expression
+class Program
+{
+    static void Main(string[] args)
+    {
+        Thread t1 = new Thread(() =>
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                Console.WriteLine("Method1 :" + i);
+            }
+        });
+        t1.Start();
     }
 }
