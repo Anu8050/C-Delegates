@@ -66,7 +66,7 @@ using System;
 }*/
 
 //Func delegate
-class FuncDelegate
+/*class FuncDelegate
 {
     static int sum(int x, int y)
     {
@@ -79,9 +79,23 @@ class FuncDelegate
         int result = add(10,20);
         Console.WriteLine(result);
     }
-}
+}*/
 
 
+//Action Delegate
+/*class ActionDelegate
+{
+    static void print(int i)
+    {
+        Console.WriteLine(i);
+    }
+
+    static void Main(string[] args)
+    {
+        Action<int> prn = print;
+        prn(10);
+    }
+}*/
 
 
 //Predicate delegate
@@ -107,3 +121,6 @@ class FuncDelegate
         Console.WriteLine(result);
     }
 }*/
+
+
+
