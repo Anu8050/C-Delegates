@@ -1,0 +1,15 @@
+F:\C#Example\C-Delegates\bin\Debug\net7.0\C-Delegates.exe
+F:\C#Example\C-Delegates\bin\Debug\net7.0\C-Delegates.deps.json
+F:\C#Example\C-Delegates\bin\Debug\net7.0\C-Delegates.runtimeconfig.json
+F:\C#Example\C-Delegates\bin\Debug\net7.0\C-Delegates.dll
+F:\C#Example\C-Delegates\bin\Debug\net7.0\C-Delegates.pdb
+F:\C#Example\C-Delegates\obj\Debug\net7.0\C-Delegates.csproj.AssemblyReference.cache
+F:\C#Example\C-Delegates\obj\Debug\net7.0\C-Delegates.GeneratedMSBuildEditorConfig.editorconfig
+F:\C#Example\C-Delegates\obj\Debug\net7.0\C-Delegates.AssemblyInfoInputs.cache
+F:\C#Example\C-Delegates\obj\Debug\net7.0\C-Delegates.AssemblyInfo.cs
+F:\C#Example\C-Delegates\obj\Debug\net7.0\C-Delegates.csproj.CoreCompileInputs.cache
+F:\C#Example\C-Delegates\obj\Debug\net7.0\C-Delegates.dll
+F:\C#Example\C-Delegates\obj\Debug\net7.0\refint\C-Delegates.dll
+F:\C#Example\C-Delegates\obj\Debug\net7.0\C-Delegates.pdb
+F:\C#Example\C-Delegates\obj\Debug\net7.0\C-Delegates.genruntimeconfig.cache
+F:\C#Example\C-Delegates\obj\Debug\net7.0\ref\C-Delegates.dll
