@@ -243,7 +243,7 @@ namespace ThreadingDemo
 }*/
 
 //Creating Thread Class Instance using Lambda Expression
-class Program
+/*class Program
 {
     static void Main(string[] args)
     {
@@ -256,4 +256,25 @@ class Program
         });
         t1.Start();
     }
+}*/
+
+//Thread Function with Parameter
+class Program
+{
+    static void Main(string[] args)
+    {
+        Program obj = new Program();
+        Thread t1 = new Thread(obj.DisplayNumbers);
+        t1.Start(5);
+        Console.Read();
+    }
+    public void DisplayNumbers(object Max)
+    {
+        int Num = Convert.ToInt32(Max);
+        for (int i = 1; i <= Num; i++)
+        {
+            Console.WriteLine("Method1 :" + i);
+        }
+    }
 }
+
