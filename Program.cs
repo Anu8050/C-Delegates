@@ -65,38 +65,45 @@ using System;
     }
 }*/
 
-
-public class Employee
+//Func delegate
+class FuncDelegate
 {
-    public int ID { get; set; }
-    public string Name { get; set; }
-    public string Gender { get; set; }
-    public double Salary { get; set; }
+    static int sum(int x, int y)
+    {
+        return x+y;
+    }
+
+    static void Main (string[] args)
+    {
+        Func<int, int, int> add = sum;
+        int result = add(10,20);
+        Console.WriteLine(result);
+    }
 }
 
-class Program
+
+
+
+//Predicate delegate
+/*class Predicatedelegates
 {
+    static bool IsUpperCase(string str)
+    {
+        return str.Equals(str.ToUpper());
+    }
+
     static void Main(string[] args)
     {
-        Predicate<Employee> employeePredicate = 
-        new Predicate<Employee>(IsEmployeeExist);
+        /*Predicate<string> isUpper = IsUpperCase;
 
-        List<Employee> listEmployee = new List<Employee>()
-        {
-            new Employee { ID = 101, Name = "Ramu", Gender = "Male", Salary = 100000},
-            new Employee { ID = 102, Name = "Anusha", Gender ="Female", Salary =1000},
-            new EMployee {ID = 103, Name = "anu", Gender ="Female", Salary =20000 },
-        };
+        bool result = isUpper("hello world!!");*/
 
-        Employee employee = listEmployees.Find(x => employeePredicate(x));
-        Console.WriteLine(@"ID : {0} , Name : {1}, Gender : {2}, Salary : {3}", 
-        employee.ID, employee.Name, employee.Gender, employee.Salary);
+        /*Predicate<string> isUpper = s => s.Equals(s.ToUpper());
+        bool result = isUpper("HELLO!!");
+
+        Predicate<string> isUpper = delegate(string s) { return s.Equals(s.ToUpper());};
+        bool result = isUpper("hello world!!");
+
+        Console.WriteLine(result);
     }
-
-    public static bool IsEmployeeExist(Employee Emp)
-    { 
-        return Emp.ID ==103;
-    }
-}
-
-
+}*/
