@@ -428,8 +428,8 @@ namespace ThreadingDemo
     }
 }*/
 
-//Real time example of thread synchronization.
-namespace ThreadStateDemo
+//Real time example using thread synchronization.
+/*namespace ThreadStateDemo
 {
     class Program
     {
@@ -492,6 +492,35 @@ namespace ThreadStateDemo
             {
                 BookTicket(name, k);
             }
+        }
+    }
+}*/
+
+
+//using Lock
+class Program
+{
+    static void Main(string[] args)
+    {
+        Thread t1 = new Thread(DisplayMessage);
+        Thread t2 = new Thread(DisplayMessage);
+        Thread t3 = new Thread(DisplayMessage);
+
+        t1.Start();
+        t2.Start();
+        t3.Start();
+
+        Console.Read();
+    }
+
+    private static readonly object LockDisplayMethod = new object();
+    static void DisplayMessage()
+    {
+        lock(LockDisplayMethod)
+        {
+            Console.Write("[Welcome to the ");
+            Thread.Sleep(1000);
+            Console.WriteLine("world of dotnet!]");
         }
     }
 }
