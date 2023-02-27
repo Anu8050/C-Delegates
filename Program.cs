@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 //Console.WriteLine("Hello, World!");
 using System;
+using System.Threading;
 /*namespace DelegatesDemo
 {
     public delegate void WorkPerformedHandler(int hours, WorkType workType);
@@ -144,7 +145,7 @@ using System;
 
 
 //Thread
-class Program 
+/*class Program 
 {
     static void Main(String[] args)
     {
@@ -153,7 +154,7 @@ class Program
         Console.WriteLine("Current Executing Thread Name :" + t.Name);
         Console.WriteLine("Current Executing Thread Name :" + Thread.CurrentThread.Name);
     }
-}
+}*/
 
 
 //Multithreading
@@ -222,3 +223,21 @@ namespace ThreadingDemo
         }
     }
 }*/
+
+
+//Constructors of Thread Class
+class ThreadConstructor
+{
+    static void Main(String[] args)
+    {
+        Thread th = new Thread(Displaynum);
+        th.Start();
+    }
+    static void Displaynum()
+    {
+        for(int i=0; i<=5; i++)
+        {
+            Console.WriteLine("Method1:" + i);
+        }
+    }
+}
