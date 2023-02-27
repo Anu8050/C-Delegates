@@ -143,8 +143,21 @@ using System;
 }*/
 
 
+//Thread
+class Program 
+{
+    static void Main(String[] args)
+    {
+        Thread t = Thread.CurrentThread;
+        t.Name = "Main Thread";
+        Console.WriteLine("Current Executing Thread Name :" + t.Name);
+        Console.WriteLine("Current Executing Thread Name :" + Thread.CurrentThread.Name);
+    }
+}
+
+
 //Multithreading
-using System.Threading;
+/*using System.Threading;
 namespace ThreadingDemo
 {
     class Program
@@ -208,4 +221,4 @@ namespace ThreadingDemo
             Console.WriteLine("Method3 Ended using " + Thread.CurrentThread.Name);
         }
     }
-}
+}*/
