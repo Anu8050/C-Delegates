@@ -315,7 +315,7 @@ namespace ThreadingDemo
 }*/
 
 //Using Join Method of Thread Class
-class Program
+/*class Program
 {
     static void Main(string[] args)
     {
@@ -353,5 +353,40 @@ class Program
         Thread.Sleep(5000);
         Console.WriteLine("Method3 - Thread3 Ended");
     }
+}*/
+
+
+//Example without Thread Synchronization
+class Program
+{
+    static void Main(string[] args)
+    {
+        Thread th1 = new Thread(SomeMethod)
+        {
+            Name = "Thread 1"
+        };
+
+        Thread th2 = new Thread(SomeMethod)
+        {
+            Name = "Thread 2"
+        };
+
+        Thread th3 = new Thread(SomeMethod)
+        {
+            Name = "Thread 3"
+        };
+
+        th1.Start();
+        th2.Start();
+        th3.Start();
+    }
+
+    public static void SomeMethod()
+    {
+        Console.Write("[Welcome to the ");
+        Thread.Sleep(1000);
+        Console.WriteLine("World of Dotnet!]");
+    }
 }
+
 
