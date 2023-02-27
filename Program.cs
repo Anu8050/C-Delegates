@@ -123,4 +123,23 @@ using System;
 }*/
 
 
+//LambdaExpression
+class LambdaExpression
+{
+    public delegate string GreetingDelegates(string name);
+
+    static void Main(string[] args)
+    {
+
+        GreetingDelegates gd = (name) =>
+        {
+            return "hi " + name;
+        };
+
+        string greetingmsg = gd.Invoke("anu");
+        Console.WriteLine(greetingmsg);
+
+    }
+}
+
 
