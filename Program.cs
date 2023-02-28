@@ -1040,7 +1040,7 @@ public class AccountManager
 }*/
 
 //Thread Pool
-class Program
+/*class Program
 {
     static void Main(string[] args)
     {
@@ -1055,5 +1055,34 @@ class Program
         Thread thread = Thread.CurrentThread;
         string msg = $"Background: {thread.IsBackground}, Thread Pool: {thread.IsThreadPoolThread}, Thread ID: {thread.ManagedThreadId}";
         Console.WriteLine(msg);
+    }
+}*/
+
+//Background Thread
+public class Program
+{
+    static void Main(string[] args)
+    {
+        Thread t1 = new Thread(Method1)
+        {
+            IsBackground = true
+        };
+        
+        Console.WriteLine($"Thread1 is a Background thread:  {t1.IsBackground}");
+        t1.Start();
+        Console.WriteLine("Main Thread Exited");
+    }
+
+    static void Method1()
+    {
+        Console.WriteLine("Method1 Started");
+        for (int i = 0; i <= 5; i++)
+        {
+            Console.WriteLine("Method1 is in Progress!!");
+            Thread.Sleep(1000);
+        }
+        Console.WriteLine("Method1 Exited");
+        Console.WriteLine("Press any key to Exit.");
+        Console.ReadKey();
     }
 }
