@@ -1059,7 +1059,7 @@ public class AccountManager
 }*/
 
 //Background Thread
-public class Program
+/*public class Program
 {
     static void Main(string[] args)
     {
@@ -1085,4 +1085,5 @@ public class Program
         Console.WriteLine("Press any key to Exit.");
         Console.ReadKey();
     }
-}
+}*/
+
