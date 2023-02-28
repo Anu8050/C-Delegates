@@ -933,7 +933,7 @@ public class Account
 }
 
 
-public class AccountManager
+/*public class AccountManager
 {
     private Account FromAccount;
     private Account ToAccount;
@@ -964,7 +964,7 @@ public class AccountManager
                 }
             }
     }
-}
+}*/
 
 class Program
 {
@@ -991,3 +991,51 @@ class Program
         Console.ReadKey();
     }
 }
+
+
+
+//Avoiding Deadlock by using Monitor.TryEnter method
+public class AccountManager
+{
+    private Account FromAccount;
+    private Account ToAccount;
+    private double TransferAmount;
+
+    public AccountManager(Account AccountFrom, Account AccountTo, double AmountTransfer)
+    {
+        this.FromAccount = AccountFrom;
+        this.ToAccount = AccountTo;
+        this.TransferAmount = AmountTransfer;
+    }
+
+    public void FundTransfer()
+    {
+        Console.WriteLine($"{Thread.CurrentThread.Name} trying to acquire lock on {FromAccount.Id}");
+        lock (FromAccount)
+        {
+            Console.WriteLine($"{Thread.CurrentThread.Name} acquired lock on {FromAccount.Id}");
+            Console.WriteLine($"{Thread.CurrentThread.Name} Doing Some work");
+            Thread.Sleep(3000);
+            Console.WriteLine($"{Thread.CurrentThread.Name} trying to acquire lock on {ToAccount.Id}");
+            
+            if (Monitor.TryEnter(ToAccount, 3000))
+            {
+                Console.WriteLine($"{Thread.CurrentThread.Name} acquired lock on {ToAccount.Id}");
+                try
+                {
+                    FromAccount.WithdarwMoney(TransferAmount);
+                    ToAccount.DepositMoney(TransferAmount);
+                }
+                finally
+                {
+                    Monitor.Exit(ToAccount);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{Thread.CurrentThread.Name} Unable to acquire lock on {ToAccount.Id}, So existing.");
+            }
+        }
+    }
+}
+
