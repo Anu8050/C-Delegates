@@ -572,7 +572,7 @@ namespace ThreadingDemo
 }*/
 
 //Monitor.Enter(lockObject, ref IslockTaken) Method //Monitor.Enter() method with 2 parameter.
-class Program
+/*class Program
 {
     private static readonly object lockPrintNumberst = new object();
     public static void PrintNumbers()
@@ -619,5 +619,60 @@ class Program
         }
         Console.ReadLine();
     }
+}*/
+
+
+//Using Monitor.TryEnter() method// TryEnter(Object, TimeSpan, Boolean) Method of Monitor Class.
+class Program
+{
+    private static readonly object lockPrintNum = new object();
+    public static void PrintNum()
+    {
+        TimeSpan timeout = TimeSpan.FromMilliseconds(1000);
+        bool lockTaken = false;
+        try
+        {
+            Console.WriteLine(Thread.CurrentThread.Name + " Trying to enter into the critical section");
+            Monitor.TryEnter(lockPrintNum, timeout, ref lockTaken);
+            if (lockTaken)
+            {
+                Console.WriteLine(Thread.CurrentThread.Name + " Entered into the critical section");
+                for (int i = 0; i < 5; i++)
+                {
+                    Thread.Sleep(100);
+                    Console.Write(i + ",");
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine(Thread.CurrentThread.Name + " Lock was not acquired");
+            }
+        }
+        finally
+        {
+            if (lockTaken)
+            {
+                Monitor.Exit(lockPrintNum);
+                Console.WriteLine(Thread.CurrentThread.Name + " Exit from critical section");
+            }
+        }
+    }
+    static void Main(string[] args)
+    {
+        Thread[] Threads = new Thread[3];
+        for (int i = 0; i < 3; i++)
+        {
+            Threads[i] = new Thread(PrintNum)
+            {
+                Name = "Child Thread " + i
+            };
+        }
+        foreach (Thread t in Threads)
+        {
+            t.Start();
+        }
+    }
 }
+
 
