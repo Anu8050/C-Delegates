@@ -880,7 +880,7 @@ namespace ThreadingDemo
 
 
 //Semaphoreslim class
-class Program
+/*class Program
 {
     static SemaphoreSlim semaphore = new SemaphoreSlim(initialCount: 3);
 
@@ -906,5 +906,88 @@ class Program
         semaphore.Release();
     }
 
+}*/
+
+
+//Deadlock
+public class Account
+{
+    public int Id {get;}
+    private double Balance { get; set; }
+    
+    public Account (int id, double balance)
+    {
+        Id = id;
+        Balance = balance;
+    }
+
+    public void WithdarwMoney(Double amount)
+    {
+        Balance -= amount;
+    }
+
+    public void DepositMoney(double amount)
+    {
+        Balance += amount;
+    }
 }
 
+
+public class AccountManager
+{
+    private Account FromAccount;
+    private Account ToAccount;
+    private double TransferAmount;
+
+    public AccountManager(Account AccountFrom, Account AccountTo, double AmountTransfer)
+    {
+        FromAccount = AccountFrom;
+        ToAccount = AccountTo;
+        TransferAmount = AmountTransfer;
+
+    }
+
+    public void FundTransfer()
+    {
+        Console.WriteLine($"{Thread.CurrentThread.Name} trying to acquire lock on {FromAccount.Id}");
+            lock (FromAccount)
+            {
+                Console.WriteLine($"{Thread.CurrentThread.Name} acquired lock on {FromAccount.Id}");
+                Console.WriteLine($"{Thread.CurrentThread.Name} Doing Some work");
+                Thread.Sleep(1000);
+                Console.WriteLine($"{Thread.CurrentThread.Name} trying to acquire lock on {ToAccount.Id}");
+
+                lock (ToAccount)
+                {
+                    FromAccount.WithdarwMoney(TransferAmount);
+                    ToAccount.DepositMoney(TransferAmount);
+                }
+            }
+    }
+}
+
+class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine("Main Thread Started");
+        Account Account1 = new Account(1001, 5000);
+        Account Account2 = new Account(1002, 3000);
+        AccountManager accountManager1 = new AccountManager(Account1, Account2, 5000);
+        Thread t1 = new Thread(accountManager1.FundTransfer)
+        {
+            Name = "Thread1"
+        };
+        AccountManager accountManager2 = new AccountManager(Account2, Account1, 6000);
+        Thread t2 = new Thread(accountManager2.FundTransfer)
+        {
+            Name = "Thread2"
+        };
+        t1.Start();
+        t2.Start();
+        t1.Join();
+        t2.Join();
+        Console.WriteLine("Main Thread Completed");
+        Console.ReadKey();
+    }
+}
