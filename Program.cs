@@ -800,7 +800,7 @@ namespace ThreadingDemo
 }*/
 
 //Mutex class with destructors.
-class Program
+/*class Program
 {
     private static Mutex mutex = new Mutex();
     static void Main(string[] args)
@@ -842,4 +842,39 @@ class Program
     {
         mutex.Dispose();
     }
+}*/
+
+//Semaphore class.
+class Program
+{
+    public static Semaphore semaphore = new Semaphore(2, 3);
+
+    static void Main(string[] args)
+    {
+        for (int i = 1; i <= 10; i++)
+        {
+            Thread threadObj = new Thread(DoSomeTask)
+            {
+                Name = "Thread " + i
+            };
+            threadObj.Start();
+        }
+    }
+
+    static void DoSomeTask()
+    {
+        Console.WriteLine(Thread.CurrentThread.Name + "Wants to enter into Critical Section For processing");
+        try
+        {
+            semaphore.WaitOne();
+            Console.WriteLine("Sucess: " + Thread.CurrentThread.Name + "is Doing its work");
+            Thread.Sleep(5000);
+            Console.WriteLine(Thread.CurrentThread.Name + "Exit");
+        }
+        finally
+        {
+            semaphore.Release();
+        }
+    }
 }
+
