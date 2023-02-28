@@ -498,7 +498,7 @@ namespace ThreadingDemo
 
 
 //using Lock
-class Program
+/*class Program
 {
     static void Main(string[] args)
     {
@@ -523,6 +523,99 @@ class Program
             Console.WriteLine("world of dotnet!]");
         }
     }
-}
+}*/
 
+
+//using  Monitor Class in C# to Protect Shared Resource from Concurrent Access
+/*class Program
+{
+    
+
+    private stativ ReadOnly object loackPrintNum = new object();
+
+    public static void Printnum()
+    {
+        Console.WriteLine(Thread.CurrentThread.Name + "Tring to enter into the critical section");
+        try
+        {
+            Monitor.Enter(loackPrintNum);
+            Console.WriteLine(Thread.CurrentThread.Name + "Enter into the critical section");
+            for (int i = 0; i< 5; i++)
+            {
+                Thread.Sleep(100);
+                Console.Write(i + ",");
+            }
+            Console.WriteLine();
+        }
+
+        finally
+        {
+            Monitor.Enter(loackPrintNum);
+            Console.WriteLine(Thread.CurrentThread.Name + "Enter into the critical section");
+        }
+    }
+
+    static void Mian(string[] args)
+    {
+        Thread[] Thread = new Thread[3];
+        for (int i = 0; i < 3; i++)
+        {
+            Thread[i] = new Thread(Printnum)
+            {
+                Name = "Child Thread" + i
+            };
+        }
+        foreach (Thread t in Threads)
+        {
+            t.Start();
+        }
+    }
+}*/
+
+
+class Program
+{
+    private static readonly object lockPrintNum = new object();
+
+    public static void PrintNum()
+    {
+        Console.WriteLine(Thread.CurrentThread.Name + " Trying to enter into the critical section");
+        
+        try
+        {
+            Monitor.Enter(lockPrintNum);
+            Console.WriteLine(Thread.CurrentThread.Name + " Entered into the critical section");
+            for (int i = 0; i < 5; i++)
+            {
+                Thread.Sleep(100);
+                Console.Write(i + ",");
+            }
+            Console.WriteLine();
+        }
+        finally
+        {
+            Monitor.Exit(lockPrintNum);
+            Console.WriteLine(Thread.CurrentThread.Name + " Exit from critical section");
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        Thread[] Threads = new Thread[3];
+        for (int i = 0; i < 3; i++)
+        {
+            Threads[i] = new Thread(PrintNum)
+            {
+                Name = "Child Thread " + i
+            };
+        }
+
+        foreach (Thread t in Threads)
+        {
+            t.Start();
+        }
+
+        Console.ReadLine();
+    }
+}
 
