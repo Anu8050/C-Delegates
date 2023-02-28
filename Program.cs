@@ -623,7 +623,7 @@ namespace ThreadingDemo
 
 
 //Using Monitor.TryEnter() method// TryEnter(Object, TimeSpan, Boolean) Method of Monitor Class.
-class Program
+/*class Program
 {
     private static readonly object lockPrintNum = new object();
     public static void PrintNum()
@@ -674,5 +674,94 @@ class Program
         }
     }
 }
+*/
+
+//Pulse() Methods of Monitor Class
+class Program
+{
+    const int numberLimit = 20;
+
+    static readonly object _lockMonitor = new object();
+
+    static void Main(string[] args)
+    {
+        Thread EvenThread = new Thread(PrintEvenNumbers);
+        Thread OddThread = new Thread(PrintOddNumbers);
+        EvenThread.Start();
+        Thread.Sleep(100);
+        OddThread.Start();
 
 
+        OddThread.Join();
+        EvenThread.Join();
+
+        Console.WriteLine("\nMain method completed");
+        Console.ReadKey();
+    }
+
+    static void PrintEvenNumbers()
+    {
+        try
+        {
+
+            Monitor.Enter(_lockMonitor);
+            for (int i = 0; i <= numberLimit; i = i + 2)
+            {
+
+                Console.Write($"{i} ");
+
+                Monitor.Pulse(_lockMonitor);
+
+
+                bool isLast = false;
+                if (i == numberLimit)
+                {
+                    isLast = true;
+                }
+
+                if (!isLast)
+                {
+
+                    Monitor.Wait(_lockMonitor);
+                }
+            }
+        }
+        finally
+        {
+
+            Monitor.Exit(_lockMonitor);
+        }
+
+    }
+
+    static void PrintOddNumbers()
+    {
+        try
+        {
+            Monitor.Enter(_lockMonitor);
+            for (int i = 1; i <= numberLimit; i = i + 2)
+            {
+
+                Console.Write($"{i} ");
+
+
+                Monitor.Pulse(_lockMonitor);
+
+                bool isLast = false;
+                if (i == numberLimit - 1)
+                {
+                    isLast = true;
+                }
+
+                if (!isLast)
+                {
+                    Monitor.Wait(_lockMonitor);
+                }
+            }
+        }
+        finally
+        {
+            Monitor.Exit(_lockMonitor);
+        }
+    }
+}
